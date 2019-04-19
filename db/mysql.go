@@ -22,6 +22,7 @@ func NewDataSource() *dataSource {
 	if err != nil{
 		panic(err)
 	}
+	db.LogMode(true)
 	return &dataSource{
 		MysqlDB:db,
 	}

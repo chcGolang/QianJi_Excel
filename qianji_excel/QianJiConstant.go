@@ -1,5 +1,12 @@
 package qianji_excel
 
+import (
+	"QianJi_Excel/constant"
+	"QianJi_Excel/dao"
+	"QianJi_Excel/vo"
+	"strings"
+)
+
 const(
 	type_Lease = "信用借还"
 	type_TaoBaoPay = "淘宝购物"
@@ -21,3 +28,30 @@ const(
 	QianJiExcel_Remarks = "备注"
 )
 var ExcelQianJiKey = []string{QianJiExcel_Time,QianJiExcel_Type,QianJiExcel_BalanceOfPayments,QianJiExcel_Money,QianJiExcel_Remarks}
+
+
+var typeMatchingRuleDaoI = dao.NewTypeMatchingRuleDao()
+
+// 转换支付类型
+func typeToQianjiType(dataMap map[string]string,typeMatchingRuleList []vo.TypeMatchingRule)(typeStr string)  {
+	for mapKey,mapValue:= range dataMap{
+		for _,ruleValue:=range typeMatchingRuleList{
+			if mapKey == ruleValue.RulesName{
+				switch ruleValue.Fuzzy {
+				case constant.FUZZY_FALSE:
+					if ruleValue.Value == mapValue{
+						typeStr = ruleValue.ConsumptionName
+						return
+					}
+				case constant.FUZZY_TRUE:
+					if strings.Contains(mapValue,ruleValue.Value){
+						typeStr = ruleValue.ConsumptionName
+						return
+					}
+				}
+			}
+		}
+	}
+	typeStr =  type_Other
+	return
+}

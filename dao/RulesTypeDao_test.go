@@ -18,3 +18,10 @@ func TestRulesTypeDaoImpl_Save(t *testing.T) {
 		panic(err)
 	}
 }
+
+func TestRulesTypeDaoImpl_DeleteByIds(t *testing.T) {
+	rulesTypeDao := NewRulesTypeDao()
+	if err := rulesTypeDao.DeleteByIds([]int{2});err != nil{
+		panic(err)
+	}
+}

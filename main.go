@@ -6,8 +6,6 @@ import (
 	"QianJi_Excel/utils"
 	"QianJi_Excel/wechatpay_excel"
 	"flag"
-	"fmt"
-	"log"
 	"path"
 	"strings"
 	"time"
@@ -29,10 +27,10 @@ func initArgs()  {
 }
 
 func main()  {
-	var(
+	/*var(
 		err error
-	)
-	for{
+	)*/
+	/*for{
 		fmt.Println()
 		fmt.Print("csv类型(1:支付宝,2:微信):")
 		if _, err = fmt.Scanln(&csvType);err != nil{
@@ -70,6 +68,10 @@ func main()  {
 		}
 
 		fmt.Println("文件存放位置:",downloadFilePath)
+	}*/
+	downloadPath = "./"
+	if err := alipayCsv("./alipay_record_20190416_1004_1.csv");err != nil{
+		panic(err)
 	}
 }
 
@@ -79,7 +81,10 @@ func alipayCsv(filePath string)(err error){
 	if err != nil{
 		return
 	}
-	excelMap := qianji_excel.AlipayDataToExcelMap(alipayDataList)
+	excelMap,err := qianji_excel.AlipayDataToExcelMap(alipayDataList)
+	if err != nil{
+		return
+	}
 	downloadFilePath = downloadPath+"alipay_"+parseWithLocation()+".xls"
 	err = utils.GetExcel().NewCategories(qianji_excel.ExcelQianJiKey).NewValueListMap(&excelMap).SaveAs(downloadFilePath)
 	if err != nil{

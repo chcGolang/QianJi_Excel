@@ -2,7 +2,8 @@ package qianji_excel
 
 import (
 	"QianJi_Excel/alipay_excel"
-	"strings"
+	"QianJi_Excel/constant"
+	"QianJi_Excel/utils"
 )
 
 const(
@@ -23,12 +24,16 @@ const(
 )
 
 // 将支付宝账单转账钱迹的excel数据
-func AlipayDataToExcelMap(aliPayDataList []alipay_excel.AlipayData) []map[string]interface{} {
+func AlipayDataToExcelMap(aliPayDataList []alipay_excel.AlipayData) (dataExcelMap []map[string]interface{},err error) {
 	var(
 		aliPayData alipay_excel.AlipayData
 		dataMap map[string]interface{}
-		dataExcelMap = make([]map[string]interface{},0)
 	)
+	dataExcelMap = make([]map[string]interface{},0)
+	rules, err := typeMatchingRuleDaoI.FindTypeMatchingRuleInfoByCsvType(constant.ALIPAY_CSV_TYPE)
+	if err != nil{
+		return
+	}
 	for _,aliPayData = range aliPayDataList{
 
 		if aliPayData.TransactionStatus != Effective_TransactionStatus{
@@ -44,33 +49,17 @@ func AlipayDataToExcelMap(aliPayDataList []alipay_excel.AlipayData) []map[string
 			continue
 		}
 		dataMap = make(map[string]interface{})
-		dataMap[QianJiExcel_Type] = alipayTypeToQianjiType(aliPayData)
+		dataMapTag, err := utils.GetMapTagToStruct(aliPayData)
+		if err != nil{
+			return
+		}
+		dataMap[QianJiExcel_Type] = typeToQianjiType(dataMapTag,rules)
 		dataMap[QianJiExcel_BalanceOfPayments] = aliPayData.BalanceOrpayments
 		dataMap[QianJiExcel_Money] = aliPayData.Money
 		dataMap[QianJiExcel_Time] = aliPayData.TransactionCreateTime
 		dataMap[QianJiExcel_Remarks] = aliPayData.CommodityName
 		dataExcelMap = append(dataExcelMap,dataMap)
 	}
-	return dataExcelMap
-}
-
-// 转换支付类型
-func alipayTypeToQianjiType(alipayData alipay_excel.AlipayData)(typeStr string)  {
-	if strings.Contains(alipayData.TransactionCounterparty,Counterparty_Lease){
-		typeStr = type_Lease
-	}else if alipayData.TransactionCounterparty == Counterparty_elm {
-		typeStr = type_ToGo
-	}else if alipayData.TransactionCounterparty == Counterparty_didi {
-		typeStr = type_Traffic
-	}else if alipayData.TransactionCounterparty == Counterparty_YuE {
-		typeStr = type_Financial
-	}else if alipayData.CommodityName == CommodityName_Prepare {
-		typeStr = type_Prepare
-	}else if alipayData.TransactionSourcePlace == SourcePlace_TaoBao{
-		typeStr = type_TaoBaoPay
-	}else{
-		typeStr = type_Other
-	}
-
 	return
 }
+
