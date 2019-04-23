@@ -15,6 +15,8 @@ type TypeMatchingRuleDao interface {
 	DeleteByIds(ids []int)error
 	// 根据csvType查询规则信息
 	FindTypeMatchingRuleInfoByCsvType(csvType int)([]vo.TypeMatchingRule,error)
+	// 查询匹配规则
+	FindTypeMatchingRule(csvTypr int,page,pageSize int)(resultList []vo.TypeMatchingRuleVo,count int,err error)
 }
 
 func NewTypeMatchingRuleDao() (typeMatchingRuleDaoI TypeMatchingRuleDao) {
@@ -25,6 +27,19 @@ func NewTypeMatchingRuleDao() (typeMatchingRuleDaoI TypeMatchingRuleDao) {
 
 type typeMatchingRuleDaoImpl struct {
 	db *gorm.DB
+}
+
+func (t *typeMatchingRuleDaoImpl) FindTypeMatchingRule(csvTypr int,page,pageSize int) (resultList []vo.TypeMatchingRuleVo,count int, err error) {
+	resultList = make([]vo.TypeMatchingRuleVo,0)
+	err = t.db.Table("type_matching_rule tmr").
+		Select("tmr.id,tmr.csv_type,tmr.value_data,rt.rules_name,ct.consumption_name").
+		Where("tmr.csv_type = ?", csvTypr).
+		Joins("INNER JOIN rules_type rt ON rt.id = tmr.rules_type_id").
+		Joins("INNER JOIN consumption_type ct ON ct.id = tmr.consumption_type_id").
+		Count(&count).
+		Limit(pageSize).Offset(page).
+		Find(&resultList).Error
+	return
 }
 
 func (t *typeMatchingRuleDaoImpl) FindTypeMatchingRuleInfoByCsvType(csvType int) ([]vo.TypeMatchingRule,error) {

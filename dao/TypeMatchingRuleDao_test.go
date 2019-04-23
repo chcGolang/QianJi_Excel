@@ -13,7 +13,7 @@ func TestTypeMatchingRuleDaoImpl_Save(t *testing.T) {
 		CsvType:constant.ALIPAY_CSV_TYPE,
 		RulesTypeId:4,
 		Fuzzy:0,
-		Value:"淘宝",
+		ValueData:"淘宝",
 		ConsumptionTypeId:10,
 	}
 	if err := typeMatchingRuleDaoI.Save(&rule);err != nil{

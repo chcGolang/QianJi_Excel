@@ -10,7 +10,7 @@ type TypeMatchingRule struct {
 	// 是否模糊匹配(0:不模糊,1:模糊)
 	Fuzzy int `json:"fuzzy" form:"fuzzy" query:"fuzzy"`
 	// 匹配值
-	Value string `json:"value" form:"value" query:"value"`
+	ValueData string `json:"value_data" form:"value_data" query:"value_data"`
 	// 消费类型Id
 	ConsumptionTypeId int `json:"consumption_type_id" form:"consumption_type_id" query:"consumption_type_id"`
 }

@@ -24,5 +24,6 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/ryanuber/columnize v2.1.0+incompatible // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
+	github.com/stretchr/testify v1.3.0
 	golang.org/x/text v0.3.1-0.20180807135948-17ff2d5776d2
 )

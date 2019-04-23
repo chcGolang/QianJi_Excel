@@ -1,5 +1,14 @@
 package main
 
+import (
+	"QianJi_Excel/bootstrap"
+	"QianJi_Excel/routes"
+	"fmt"
+)
+
 func main()  {
-	//app := iris.New()
+	bootstrapper := bootstrap.NewBootstrapper("钱迹模板转换", "chc", "qianji")
+	bootstrapper.Bootstrap()
+	bootstrapper.Configure(routes.RoutesConfigure)
+	bootstrapper.Listen(fmt.Sprintf(":%d",8080))
 }
