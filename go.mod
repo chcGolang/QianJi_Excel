@@ -11,6 +11,7 @@ require (
 	github.com/iris-contrib/blackfriday v2.0.0+incompatible // indirect
 	github.com/iris-contrib/formBinder v0.0.0-20190104093907-fbd5963f41e1 // indirect
 	github.com/iris-contrib/go.uuid v2.0.0+incompatible // indirect
+	github.com/iris-contrib/middleware v0.0.0-20181021162728-8bd5d51b3c2e
 	github.com/jinzhu/gorm v1.9.4
 	github.com/json-iterator/go v1.1.6 // indirect
 	github.com/jszwec/csvutil v1.2.1 // indirect
@@ -24,6 +25,7 @@ require (
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/ryanuber/columnize v2.1.0+incompatible // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
+	github.com/smokezl/govalidators v0.0.0-20181012065008-5fded539f530
 	github.com/stretchr/testify v1.3.0
 	golang.org/x/text v0.3.1-0.20180807135948-17ff2d5776d2
 )

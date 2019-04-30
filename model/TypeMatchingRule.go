@@ -7,7 +7,7 @@ type TypeMatchingRule struct {
 	CsvType int `json:"csv_type" form:"csv_type" query:"csv_type"`
 	// 匹配字段Id
 	RulesTypeId int `json:"rules_type_id" form:"rules_type_id" query:"rules_type_id"`
-	// 是否模糊匹配(0:不模糊,1:模糊)
+	// 是否模糊匹配(0:全文匹配,1:模糊)
 	Fuzzy int `json:"fuzzy" form:"fuzzy" query:"fuzzy"`
 	// 匹配值
 	ValueData string `json:"value_data" form:"value_data" query:"value_data"`

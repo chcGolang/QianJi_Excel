@@ -12,3 +12,15 @@ type TypeMatchingRule struct {
 	// csv标题名称
 	RulesName string `json:"rules_name" form:"rules_name" query:"rules_name"`
 }
+
+type RulesTypeInfoVo struct {
+	Id int `json:"id" form:"id" query:"id" gorm:"primary_key"`
+	// csv标题名称
+	RulesName string `json:"rules_name" form:"rules_name" query:"rules_name"`
+}
+
+type ConsumptionTypeVo struct {
+	Id int `json:"id" form:"id" query:"id"`
+	// 类型名称
+	ConsumptionName string `json:"consumption_name" form:"consumption_name" query:"consumption_name"`
+}

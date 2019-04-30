@@ -28,6 +28,8 @@ github.com/iris-contrib/blackfriday
 github.com/iris-contrib/formBinder
 # github.com/iris-contrib/go.uuid v2.0.0+incompatible
 github.com/iris-contrib/go.uuid
+# github.com/iris-contrib/middleware v0.0.0-20181021162728-8bd5d51b3c2e
+github.com/iris-contrib/middleware/cors
 # github.com/jinzhu/gorm v1.9.4
 github.com/jinzhu/gorm
 github.com/jinzhu/gorm/dialects/mysql
@@ -45,8 +47,8 @@ github.com/kataras/iris/middleware/logger
 github.com/kataras/iris/middleware/recover
 github.com/kataras/iris/view
 github.com/kataras/iris/mvc
-github.com/kataras/iris/cache
 github.com/kataras/iris/context
+github.com/kataras/iris/cache
 github.com/kataras/iris/core/errors
 github.com/kataras/iris/core/handlerconv
 github.com/kataras/iris/core/host
@@ -56,8 +58,8 @@ github.com/kataras/iris/hero
 github.com/kataras/iris/hero/di
 github.com/kataras/iris/macro
 github.com/kataras/iris/sessions
-github.com/kataras/iris/cache/client
 github.com/kataras/iris/core/memstore
+github.com/kataras/iris/cache/client
 github.com/kataras/iris/macro/handler
 github.com/kataras/iris/macro/interpreter/ast
 github.com/kataras/iris/macro/interpreter/lexer
@@ -90,6 +92,8 @@ github.com/pmezard/go-difflib/difflib
 github.com/ryanuber/columnize
 # github.com/shurcooL/sanitized_anchor_name v1.0.0
 github.com/shurcooL/sanitized_anchor_name
+# github.com/smokezl/govalidators v0.0.0-20181012065008-5fded539f530
+github.com/smokezl/govalidators
 # github.com/stretchr/testify v1.3.0
 github.com/stretchr/testify/assert
 # golang.org/x/crypto v0.0.0-20190325154230-a5d413f7728c
