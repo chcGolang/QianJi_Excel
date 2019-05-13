@@ -20,8 +20,7 @@ type CsvFileInfo struct {
 	CreatedAt time.Time `json:"created_at" form:"created_at" query:"created_at"`
 	// 修改时间
 	UpdatedAt time.Time `json:"updated_at" form:"updated_at" query:"updated_at"`
-	// 文件秘钥
-	FileKey string `json:"file_key" form:"file_key" query:"file_key"`
+
 
 
 }

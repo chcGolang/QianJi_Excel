@@ -78,3 +78,8 @@ type CsvFileSaveInfo struct {
 	FileKey string `json:"file_key" form:"file_key" query:"file_key"`
 
 }
+
+type FileUpload struct {
+	CsvType int `json:"csv_type" form:"csv_type" query:"csv_type"`
+	BillTime string `json:"bill_time" form:"bill_time" query:"bill_time"`
+}

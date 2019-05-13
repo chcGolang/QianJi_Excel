@@ -12,9 +12,7 @@ import (
 
 type ICsvFileInfoService interface {
 	// 上传文件
-	UploadCsvFile(file multipart.File,fileHeader *multipart.FileHeader,file_key string)(id int,err error)
-	// 添加文件信息
-	SaveCsvFileInfo(voInfo vo.CsvFileSaveInfo)(err error)
+	UploadCsvFile(file multipart.File,fileHeader *multipart.FileHeader,fileUpload vo.FileUpload)(id int,err error)
 }
 
 func NewCsvFileInfoService()ICsvFileInfoService  {
@@ -27,22 +25,12 @@ type csvFileInfoService struct {
 	CsvFileInfoDao dao.ICsvFileInfoDao
 }
 
-func (c *csvFileInfoService) SaveCsvFileInfo(voInfo vo.CsvFileSaveInfo) (err error) {
-	billTime, err := time.Parse("2006-01", voInfo.BillTime)
+
+func (c *csvFileInfoService) UploadCsvFile(file multipart.File, fileHeader *multipart.FileHeader,fileUpload vo.FileUpload) (id int,err error) {
+	billTime, err := time.Parse("2006-01", fileUpload.BillTime)
 	if err != nil{
 		return
 	}
-	info := model.CsvFileInfo{
-		BillTime:&billTime,
-		FileKey:voInfo.FileKey,
-		CsvType:voInfo.CsvType,
-		Status:1,
-	}
-	return c.CsvFileInfoDao.UpdateByFileKey(info)
-
-}
-
-func (c *csvFileInfoService) UploadCsvFile(file multipart.File, fileHeader *multipart.FileHeader,file_key string) (id int,err error) {
 	filename := fileHeader.Filename
 	filePath := "./"+filename
 	out, err := os.OpenFile("./"+filename,
@@ -57,9 +45,9 @@ func (c *csvFileInfoService) UploadCsvFile(file multipart.File, fileHeader *mult
 	}
 	info := model.CsvFileInfo{
 		UploadFilePath: filePath,
-		Status:         0,
-		BillTime:nil,
-		FileKey:file_key,
+		Status:         1,
+		BillTime:&billTime,
+		CsvType:fileUpload.CsvType,
 	}
 	if err = c.CsvFileInfoDao.Save(&info);err != nil{
 		out.Close()
