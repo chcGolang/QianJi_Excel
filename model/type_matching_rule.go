@@ -1,5 +1,7 @@
 package model
 
+import "time"
+
 type TypeMatchingRule struct {
 	// 主键id
 	Id int `json:"id" form:"id" query:"id" gorm:"primary_key"`
@@ -13,6 +15,11 @@ type TypeMatchingRule struct {
 	ValueData string `json:"value_data" form:"value_data" query:"value_data"`
 	// 消费类型Id
 	ConsumptionTypeId int `json:"consumption_type_id" form:"consumption_type_id" query:"consumption_type_id"`
+	// 添加时间
+	CreatedAt time.Time `json:"created_at" form:"created_at" query:"created_at"`
+	// 修改时间
+	UpdatedAt time.Time `json:"updated_at" form:"updated_at" query:"updated_at"`
+
 }
 
 func (TypeMatchingRule)TableName() string {

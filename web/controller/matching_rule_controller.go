@@ -36,7 +36,7 @@ func (m *MatchingRuleController)PostListdata()  resultResp {
 
 // 查询csv文件类型
 func (m *MatchingRuleController)GetCsv_type_info() resultResp  {
-	csvTypeInfo := make([]vo.CsvTypeInfoVo,2)
+	/*csvTypeInfo := make([]vo.CsvTypeInfoVo,2)
 	csvTypeInfo[0] = vo.CsvTypeInfoVo{
 		CsvType:constant.ALIPAY_CSV_TYPE,
 		CsvName:"支付宝Csv",
@@ -44,8 +44,11 @@ func (m *MatchingRuleController)GetCsv_type_info() resultResp  {
 	csvTypeInfo[1] = vo.CsvTypeInfoVo{
 		CsvType:constant.WECHAT_CSV_TYPE,
 		CsvName:"微信Csv",
-	}
-	return succeesData(csvTypeInfo)
+	}*/
+	m.Ctx.Request().Header.Add("Access-Control-Allow-Origin", "*")
+	m.Ctx.Request().Header.Add("Content-Type", "multipart/form-data")
+	m.Ctx.Request().Header.Add("Access-Control-Allow-Headers", "x-requested-with")
+	return succeesData(m.ValidateService.FindCsvTypeInfo())
 }
 
 // 查询csv标题

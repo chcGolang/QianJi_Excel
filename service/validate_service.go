@@ -4,6 +4,7 @@ import (
 	"QianJi_Excel/constant"
 	"QianJi_Excel/dao"
 	"QianJi_Excel/utils"
+	"QianJi_Excel/vo"
 	"github.com/smokezl/govalidators"
 	"reflect"
 	"strings"
@@ -17,6 +18,12 @@ type IValidateService interface {
 	CheckConsumptionTypeId(consumptionTypeId int)(err error)
 	// 交运参数
 	Validators(structWeb interface{})(errList []error)
+	// 查询csv类型
+	FindCsvTypeInfo()(voList []vo.CsvTypeInfoVo)
+	// 校验RulesName是否存在
+	CheckRulesName(rules_name string,csv_type int)(err error)
+	// 校验钱迹消费类型名称
+	CheckConsumptionTypeName(name string)(err error)
 }
 
 var validateServiceImpl = &validateService{
@@ -36,6 +43,42 @@ type validateService struct {
 	dao.ConsumptionTypeDao
 	validator *govalidators.Validator
 	dao.TypeMatchingRuleDao
+}
+
+func (v *validateService) CheckConsumptionTypeName(name string) (err error) {
+	count := 0
+	if count, err = v.ConsumptionTypeDao.FindConsumptionNameToCount(name);err != nil{
+		return
+	}
+	if count >0 {
+		err = utils.Errorf("消费类型已存在:%s",name)
+	}
+	return
+
+}
+
+func (v *validateService) CheckRulesName(rules_name string, csv_type int) (err error) {
+	count, err := v.RulesTypeDao.FindCountByCsvTypeAndRulesName(rules_name, csv_type)
+	if err !=nil{
+		return
+	}
+	if count > 0 {
+		return utils.Errorf("Csv标题已存在")
+	}
+	return nil
+}
+
+func (v *validateService) FindCsvTypeInfo() (voList []vo.CsvTypeInfoVo) {
+	voList = make([]vo.CsvTypeInfoVo,2)
+	voList[0] = vo.CsvTypeInfoVo{
+		CsvType:constant.ALIPAY_CSV_TYPE,
+		CsvName:"支付宝Csv",
+	}
+	voList[1] = vo.CsvTypeInfoVo{
+		CsvType:constant.WECHAT_CSV_TYPE,
+		CsvName:"微信Csv",
+	}
+	return
 }
 
 var validator = govalidators.New()

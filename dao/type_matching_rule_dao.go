@@ -84,7 +84,8 @@ func (t *typeMatchingRuleDaoImpl) FindTypeMatchingRule(csvType,rulesTypeId,consu
 		sqlValue = append(sqlValue,"%"+valueData+"%")
 
 	}
-	err = db.Where(sqlWhere,sqlValue...).Count(&count).
+	err = db.Where(sqlWhere,sqlValue...).
+		Order("tmr.updated_at Desc").Count(&count).
 		Limit(pageSize).Offset(page).
 		Find(&resultList).Error
 	return

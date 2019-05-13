@@ -6,6 +6,6 @@ const(
 )
 
 var CsvTypeName =map[int]string{
-	ALIPAY_CSV_TYPE:"支付宝csv文件",
-	WECHAT_CSV_TYPE:"微信csv文件",
+	ALIPAY_CSV_TYPE:"支付宝",
+	WECHAT_CSV_TYPE:"微信",
 }

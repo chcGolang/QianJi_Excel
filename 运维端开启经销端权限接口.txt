@@ -1,0 +1,21 @@
+运维端开启经销端权限接口
+1. 首页>权限管理>功能管理>经销端
+2. 点击`+ 功能`
+3. 功能名称:导出excel
+	标识:sale_excel_export
+	/api/export/findExportExcelList GET
+	/api/export/downloadExcelById	GET
+4. 点击`生成新功能`
+
+5. 首页>权限管理>导航设置>经销端>订单管理
+6. 点击`添加新功能`
+7. 选择`经销端-Excel导出功能` 绑定
+
+
+8. 首页>权限管理>角色模板>经销端>订单管理>经销商通用权限>订单管理>我的订单
+9. 点击`经销端-Excel导出功能`
+10. 点击`同步到全部用户`
+
+11. 首页>权限管理>功能管理>经销端
+12. 功能名称: 经销端-订单管理-查看订单列表
+13. 添加/api/export/exportSellerOrderListToExcel  GET

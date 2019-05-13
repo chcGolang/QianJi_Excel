@@ -2,7 +2,7 @@ package main
 
 import (
 	"QianJi_Excel/bootstrap"
-	"QianJi_Excel/routes"
+	"QianJi_Excel/web/routes"
 	"fmt"
 )
 

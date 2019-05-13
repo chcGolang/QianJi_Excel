@@ -63,3 +63,18 @@ type TypeMatchingRuleEditVo struct {
 	// 消费类型Id
 	ConsumptionTypeId int `json:"consumption_type_id" form:"consumption_type_id" query:"consumption_type_id" validate:"consumptionTypeId"`
 }
+
+// csv字段表
+type RulesTypeSaveVo struct {
+	// csv标题名称
+	RulesName string `json:"rules_name" form:"rules_name" query:"rules_name" validate:"required"`
+	// 1:支付宝,2:微信
+	CsvType int `json:"csv_type" form:"csv_type" query:"csv_type" validate:"csvType"`
+}
+
+type CsvFileSaveInfo struct {
+	BillTime string `json:"bill_time" form:"bill_time" query:"bill_time"`
+	CsvType int `json:"csv_type" form:"csv_type" query:"csv_type"`
+	FileKey string `json:"file_key" form:"file_key" query:"file_key"`
+
+}
